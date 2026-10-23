@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b1020" />
+  <meta name="description" content="QueryVault is a personal SQL troubleshooting toolkit for database and application support engineers." />
+  <title>QueryVault — SQL Troubleshooting Toolkit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="QueryVault home">
+        <span class="brand-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5C4 3.84 7.58 2.5 12 2.5s8 1.34 8 3-3.58 3-8 3-8-1.34-8-3Z"/><path d="M4 5.5v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"/><path d="M4 11.5v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"/></svg></span>
+        <span class="brand-name">Query<span>Vault</span><small>SQL TROUBLESHOOTING TOOLKIT</small></span>
+      </a>
+      <div class="side-section-label">WORKSPACE</div>
+      <button class="nav-link active" data-view="library"><span class="nav-symbol">▤</span> SQL Library <span class="nav-count" id="nav-count">12</span></button>
+      <button class="nav-link" data-view="errors"><span class="nav-symbol">⚠</span> Oracle Error Guide</button>
+      <button class="nav-link" data-view="checklist"><span class="nav-symbol">☷</span> Safe Run Checklist</button>
+      <button class="nav-link" data-view="notes"><span class="nav-symbol">✎</span> Troubleshooting Notes</button>
+      <div class="sidebar-bottom">
+        <div class="storage-card">
+          <div class="storage-icon">⌘</div>
+          <div><strong>Local-first workspace</strong><p>Your saved snippets stay in this browser on this device.</p></div>
+          <span class="online-dot"></span>
+        </div>
+        <div class="profile"><div class="profile-avatar">QV</div><div><strong>Support Engineer</strong><span>Personal workspace</span></div><button id="export-all" title="Export workspace" aria-label="Export workspace">↗</button></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobile-menu" aria-label="Toggle menu">☰</button>
+        <div class="breadcrumbs">Workspace <span>/</span> <b id="breadcrumb-current">SQL Library</b></div>
+        <div class="topbar-right"><span class="system-status"><i></i> Local workspace</span><button class="icon-button" id="theme-info" title="About QueryVault">?</button><div class="top-avatar">QV</div></div>
+      </header>
+
+      <div class="page-content">
+        <section class="hero">
+          <div class="hero-copy">
+            <div class="eyebrow"><span class="eyebrow-line"></span> YOUR DATABASE SUPPORT COMPANION</div>
+            <h1>Find the query.<br><span>Fix the issue.</span> Keep the knowledge.</h1>
+            <p>A practical workspace for SQL snippets, Oracle error notes, and safer troubleshooting routines — built for the people behind the systems.</p>
+            <div class="hero-actions"><button class="button-primary" id="hero-add"><span>＋</span> Save a query</button><button class="button-quiet" id="hero-browse">Explore library <span>↘</span></button></div>
+          </div>
+          <div class="hero-visual" aria-hidden="true">
+            <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+            <div class="vault-core"><div class="vault-glyph">⌘</div><div class="vault-ring"></div></div>
+            <div class="floating-code code-one"><span class="code-dot"></span> SELECT <b>*</b> FROM <em>issue_log</em></div>
+            <div class="floating-code code-two"><span class="check-glyph">✓</span> <b>Read-only first</b></div>
+            <div class="floating-code code-three"><span class="tiny-purple">●</span> ORA-00904</div>
+          </div>
+          <div class="hero-glow"></div>
+        </section>
+
+        <section class="stats-row" aria-label="Library summary">
+          <div class="stat-card"><div class="stat-icon purple">▤</div><div><span>Saved snippets</span><strong id="stat-snippets">12</strong><small>Ready to reuse</small></div></div>
+          <div class="stat-card"><div class="stat-icon cyan">⌕</div><div><span>Oracle errors</span><strong id="stat-errors">8</strong><small>Quick references</small></div></div>
+          <div class="stat-card"><div class="stat-icon green">✓</div><div><span>Safety checks</span><strong id="stat-checks">6</strong><small>Before you execute</small></div></div>
+          <div class="stat-card"><div class="stat-icon amber">✎</div><div><span>Your notes</span><strong id="stat-notes">0</strong><small>Lessons captured</small></div></div>
+        </section>
+
+        <section class="view-panel active-view" id="view-library">
+          <div class="section-head"><div><div class="section-kicker">PERSONAL KNOWLEDGE BASE</div><h2>Your SQL library</h2><p>Search, filter, copy, and save useful query patterns.</p></div><button class="button-primary compact" id="add-query"><span>＋</span> New snippet</button></div>
+          <div class="library-toolbar">
+            <div class="search-box"><span>⌕</span><input id="search-input" type="search" placeholder="Search snippets, tables, tags..." autocomplete="off" aria-label="Search snippets" /><kbd>⌘ K</kbd></div>
+            <select id="category-filter" aria-label="Filter by category"><option value="all">All categories</option><option>Read-only checks</option><option>Data validation</option><option>Batch monitoring</option><option>Incident investigation</option><option>Data correction</option></select>
+            <select id="sort-filter" aria-label="Sort snippets"><option value="recent">Recently added</option><option value="az">Name A–Z</option><option value="safety">Safest first</option></select>
+          </div>
+          <div class="quick-tags"><span>Quick filters</span><button class="filter-chip selected" data-tag="all">All</button><button class="filter-chip" data-tag="read-only">Read-only</button><button class="filter-chip" data-tag="oracle">Oracle</button><button class="filter-chip" data-tag="batch">Batch jobs</button><button class="filter-chip" data-tag="incident">Incident triage</button></div>
+          <div class="library-summary"><span id="result-count">Showing 12 snippets</span><span><i class="tiny-green"></i> Sample data included</span></div>
+          <div class="snippet-grid" id="snippet-grid"></div>
+          <div class="empty-state hidden" id="empty-state"><div>⌕</div><strong>No snippets found</strong><p>Try another search or create a new SQL snippet.</p><button class="button-primary compact" id="empty-add">Create snippet</button></div>
+        </section>
+
+        <section class="view-panel" id="view-errors">
+          <div class="section-head"><div><div class="section-kicker">ORACLE QUICK REFERENCE</div><h2>Error guide</h2><p>Common Oracle errors, what they usually mean, and a safe first check.</p></div></div>
+          <div class="notice-box"><span>ⓘ</span><p>These are starting points, not guaranteed root causes. Confirm the SQL, schema, permissions, and environment before changing data.</p></div>
+          <div class="error-search search-box"><span>⌕</span><input id="error-search" type="search" placeholder="Search error code or meaning..." aria-label="Search Oracle errors" /></div>
+          <div class="error-grid" id="error-grid"></div>
+        </section>
+
+        <section class="view-panel" id="view-checklist">
+          <div class="section-head"><div><div class="section-kicker">PAUSE BEFORE EXECUTE</div><h2>Safe run checklist</h2><p>A small routine to reduce avoidable mistakes during production support.</p></div><button class="button-quiet" id="reset-checklist">Reset checklist ↻</button></div>
+          <div class="checklist-layout"><div class="checklist-main"><div class="check-progress"><div><strong id="check-progress-title">0 of 8 completed</strong><span>Make safety part of the workflow.</span></div><div class="progress-ring"><span id="check-progress-percent">0%</span></div></div><div id="checklist-items"></div></div><aside class="checklist-aside"><div class="aside-shield">✓</div><h3>Read-only first.</h3><p>Start with SELECT statements to understand the affected rows before planning a data change.</p><div class="aside-rule"></div><strong>Before a write operation</strong><ul><li>Confirm approval and scope.</li><li>Capture a backup or before-state.</li><li>Use a precise WHERE clause.</li><li>Verify results after the change.</li></ul></aside></div>
+        </section>
+
+        <section class="view-panel" id="view-notes">
+          <div class="section-head"><div><div class="section-kicker">CAPTURE WHAT YOU LEARN</div><h2>Troubleshooting notes</h2><p>Record symptoms, checks, findings, and resolution steps for future incidents.</p></div><button class="button-primary compact" id="add-note"><span>＋</span> New note</button></div>
+          <div class="notes-layout"><div class="notes-list" id="notes-list"></div><div class="note-editor" id="note-editor"><div class="editor-placeholder"><div>✎</div><strong>Keep the next incident easier.</strong><p>Select a note to review it, or create a new troubleshooting record.</p><button class="button-primary compact" id="first-note">Create a note</button></div></div></div>
+        </section>
+
+        <footer class="footer"><span>QueryVault <span class="footer-version">v1.0 starter</span></span><span>Local-first · Sample data · No server required</span><a href="README.md" target="_blank">Read setup guide ↗</a></footer>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal-backdrop hidden" id="query-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <form class="modal" id="query-form">
+      <div class="modal-head"><div><div class="section-kicker">LIBRARY EDITOR</div><h2 id="modal-title">Save a SQL snippet</h2></div><button type="button" class="modal-close" data-close="query-modal" aria-label="Close">×</button></div>
+      <label for="query-title">Snippet title</label><input id="query-title" required maxlength="90" placeholder="e.g. Check unprocessed staging rows" />
+      <div class="form-row"><div><label for="query-category">Category</label><select id="query-category"><option>Read-only checks</option><option>Data validation</option><option>Batch monitoring</option><option>Incident investigation</option><option>Data correction</option></select></div><div><label for="query-safety">Risk level</label><select id="query-safety"><option value="safe">Read-only / low risk</option><option value="caution">Review carefully</option><option value="write">Write operation</option></select></div></div>
+      <label for="query-code">SQL code</label><textarea id="query-code" required rows="8" class="code-input" placeholder="SELECT ..."></textarea>
+      <label for="query-description">What does it check?</label><textarea id="query-description" rows="2" maxlength="300" placeholder="Purpose, expected result, and when to use it..."></textarea>
+      <label for="query-tags">Tags <span class="label-muted">comma-separated</span></label><input id="query-tags" placeholder="oracle, read-only, staging" />
+      <div class="modal-foot"><span>Saved to this browser only.</span><button class="button-primary" type="submit">Save snippet <span>→</span></button></div>
+    </form>
+  </div>
+
+  <div class="modal-backdrop hidden" id="note-modal" role="dialog" aria-modal="true" aria-labelledby="note-modal-title">
+    <form class="modal" id="note-form">
+      <div class="modal-head"><div><div class="section-kicker">INCIDENT JOURNAL</div><h2 id="note-modal-title">New troubleshooting note</h2></div><button type="button" class="modal-close" data-close="note-modal" aria-label="Close">×</button></div>
+      <label for="note-title">Incident or topic</label><input id="note-title" required maxlength="100" placeholder="e.g. Batch job stuck in processing" />
+      <label for="note-symptom">Symptoms / impact</label><textarea id="note-symptom" rows="2" placeholder="What did you observe? What was affected?"></textarea>
+      <label for="note-checks">Checks performed</label><textarea id="note-checks" rows="3" placeholder="Read-only queries, logs checked, status verified..."></textarea>
+      <label for="note-resolution">Findings / resolution</label><textarea id="note-resolution" rows="3" placeholder="Root cause (if confirmed), actions, and verification..."></textarea>
+      <div class="modal-foot"><span>Do not include credentials or customer secrets.</span><button class="button-primary" type="submit">Save note <span>→</span></button></div>
+    </form>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
